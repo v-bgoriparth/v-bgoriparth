@@ -91,10 +91,10 @@ resource "google_project_iam_custom_role" "sentineliam-custom-role" {
   project = data.google_project.project.project_id
 }
 
-resource "google_project_iam_member" "bind-sentinel-custom-role-to-sentinel-service-account" {
+resource "google_project_iam_member" "bind-sentineliam-custom-role-to-sentinel-service-account" {
   provider = google-beta
   project = data.google_project.project.project_id
-  role    = google_project_iam_custom_role.sentinel-custom-role.name
+  role    = google_project_iam_custom_role.sentineliam-custom-role.name
 
   member = "serviceAccount:${google_service_account.sentinel-service-account.account_id}@${data.google_project.project.project_id}.iam.gserviceaccount.com"
   depends_on = [
