@@ -15,7 +15,7 @@ data "google_project" "project" {
 
 variable "topic-name" {
   type    = string
-  default = "sentinel-topic"
+  default = "sentineliam-topic"
   description = "Name of existing topic"
 }
 
@@ -40,7 +40,7 @@ resource "google_pubsub_subscription" "sentinel-subscription" {
   project = data.google_project.project.project_id
   name  = "sentinel-subscription-IAMlogs"
   topic = var.topic-name
-  depends_on = [google_pubsub_topic.sentinel-topic]
+  depends_on = [google_pubsub_topic.sentineliam-topic]
 }
 
 resource "google_logging_project_sink" "sentinel-sink" {
@@ -48,7 +48,7 @@ resource "google_logging_project_sink" "sentinel-sink" {
   count = var.organization-id == "" ? 1 : 0
   name = "IAM-logs-sentinel-sink"
   destination = "pubsub.googleapis.com/projects/${data.google_project.project.project_id}/topics/${var.topic-name}"
-  depends_on = [google_pubsub_topic.sentinel-topic]
+  depends_on = [google_pubsub_topic.sentineliam-topic]
 
   filter = "resource.type=gce_subnetwork AND logName:IAM"
   unique_writer_identity = true
