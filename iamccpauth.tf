@@ -15,7 +15,9 @@ locals{
   workload_identity_pool_id = replace(var.tenant-id, "-", "") // Do not change it.
 }
 
-data "google_project" "project" {}
+data "google_project" "project" {
+  project_id = "msccp-test"
+}
 
 variable "tenant-id" {
   type    = string
