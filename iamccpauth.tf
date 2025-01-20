@@ -83,7 +83,7 @@ resource "google_service_account" "sentinel-service-account" {
   ]
 }
 
-resource "google_project_iam_custom_role" "sentinel-custom-role" {
+resource "google_project_iam_custom_role" "sentineliam-custom-role" {
   role_id     = "SentinelCustomRole"
   title       = "Sentinel Custom Role"
   description = "Role that allowes pulling messages from pub/sub"
